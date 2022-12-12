@@ -1,0 +1,12 @@
+src/wkbApp/*.iml
+src/wkbApp/.gradle
+src/wkbApp/local.properties
+src/wkbApp/.DS_Store
+src/wkbApp/build
+src/wkbApp/app/build
+src/wkbApp/captures
+src/wkbApp/.externalNativeBuild
+src/wkbApp/.cxx
+src/wkbApp/local.properties
+src/wkbApp/.idea
+src/wkbApp/app/src/debug
