@@ -12,12 +12,11 @@ class Alarm {
     var day: Int? = null
     var sound: String? = null
     var vibration: String? = null
-    @Column(name = "is_active")
     var isActive: Boolean = true
     @ManyToOne
     var group: Group? = null
-    @ManyToMany(mappedBy = "alarms")
-    var users: List<User> = mutableListOf()
+    @ManyToOne
+    var user: User? = null
     @Id
     @GeneratedValue
     var id: Long? = null

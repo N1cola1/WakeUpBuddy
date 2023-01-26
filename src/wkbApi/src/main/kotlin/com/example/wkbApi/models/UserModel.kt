@@ -7,12 +7,10 @@ import javax.persistence.*
 class User {
     var lastname: String = ""
     var firstname: String = ""
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     var username: String = ""
     @Column(nullable = false)
     var password: String = ""
-    @Column(nullable = false)
-    var email: String = ""
     @ManyToMany
     @JoinTable(
         name = "group_user",
@@ -20,12 +18,7 @@ class User {
         inverseJoinColumns = [JoinColumn(name = "group_id", referencedColumnName = "id")]
     )
     var groups: List<Group> = mutableListOf()
-    @ManyToMany
-    @JoinTable(
-        name = "user_alarm",
-        joinColumns = [JoinColumn(name = "user_id", referencedColumnName = "id")],
-        inverseJoinColumns = [JoinColumn(name = "alarm_id", referencedColumnName = "id")]
-    )
+    @OneToMany(mappedBy = "user")
     var alarms: List<Alarm> = mutableListOf()
     @Id
     @GeneratedValue

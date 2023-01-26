@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import java.util.*
 
 @RestController
 @RequestMapping("/groups")
@@ -23,7 +24,7 @@ class GroupController(private val repository: GroupRepository) {
     }
 
     @GetMapping("/{id}")
-    fun getAlarmById(@PathVariable id: String): Group? {
+    fun getAlarmById(@PathVariable id: Long): Optional<Group> {
         return repository.findById(id)
     }
 }
