@@ -13,8 +13,6 @@ import android.widget.CompoundButton
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import kotlinx.android.synthetic.main.row_item_alarm.view.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.com.example.wakeupbuddy.models.AlarmModel
 import java.com.example.wakeupbuddy.models.UserModel
@@ -28,35 +26,37 @@ class MyAlarmManager(private val context: Context) : BaseAdapter() {
     private val wkbApp: WakeUpBuddyApp = context.applicationContext as WakeUpBuddyApp
 
     init {
-        //todo get all alarms of the user from the database
-        loadAlarms()
+        //get all alarms of the user from the database
+        val api = MyAPI.create()
+        loadAllAlarms(api)
 
-        val calendar = Calendar.getInstance()
-        calendar.timeZone = wkbApp.getTimezone()
-        val time = "${calendar.get(Calendar.HOUR_OF_DAY)}:${calendar.get(Calendar.MINUTE)}"
-        alarmList.add(AlarmModel(name = "Alarm 1", time = time, active = 0))
+//        val calendar = Calendar.getInstance()
+//        calendar.timeZone = wkbApp.getTimezone()
+//        val time = "${calendar.get(Calendar.HOUR_OF_DAY)}:${calendar.get(Calendar.MINUTE)}"
+//        alarmList.add(AlarmModel(name = "Alarm 1", time = time, active = 0))
 
         alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-        alarmList.forEachIndexed { index, alarm ->
-            if (alarm.active == 1) {
-                activateAlarm(index)
-            }
-        }
+//        alarmList.forEachIndexed { index, alarm ->
+//            if (alarm.active == 1) {
+//                activateAlarm(index)
+//            }
+//        }
 
         //todo sort by activation (1) and time (2)
         //todo make listview scrollable, currently: to many alarms -> layout broken
 
     }
 
-    private fun loadAlarms() = runBlocking {
-        val test = launch {
-            val api = wkbApp.getApi()
-            val res = api.getAllAlarms()
-            println(res)
-            val list = res.body()
+    private fun loadAllAlarms(api: MyAPI) = runBlocking {
+        val result: List<AlarmModel> = api.getAllAlarms()
+        println(result)
+        alarmList += result
+        result.forEachIndexed { index, alarm ->
+            if (alarm.active == 1) {
+                activateAlarm(index)
+            }
         }
-        test.join()
     }
 
     override fun getCount(): Int {

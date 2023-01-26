@@ -20,7 +20,7 @@ class WakeUpBuddyApp : Application() {
     private var myFGMInitialized: Boolean = false
     private var userList: ArrayList<UserModel> = ArrayList()
     private var currentUser: UserModel? = null
-    private val api = RetrofitHelper.getInstance().create(ApiInterface::class.java)
+//    private val api = RetrofitHelper.getInstance().create(ApiInterface::class.java)
 
     fun initializeMyAlarmManager(context: Context) {
 
@@ -49,9 +49,9 @@ class WakeUpBuddyApp : Application() {
         myFGMInitialized = true
     }
 
-    fun getApi(): ApiInterface {
-        return api
-    }
+//    fun getApi(): ApiInterface {
+//        return api
+//    }
 
     fun getMyAlarmManager(): MyAlarmManager = myAM
 

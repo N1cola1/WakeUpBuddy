@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/alarms")
 class AlarmController(private val repository: AlarmRepository) {
 
-    @GetMapping("/")
+    @GetMapping
     fun getAllAlarms(): Iterable<Alarms> {
+        println("getAllAlarms called")
         return repository.findAll()
     }
 
