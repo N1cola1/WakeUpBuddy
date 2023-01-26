@@ -1,16 +1,24 @@
 package com.example.wkbApi.models
 
-import java.util.UUID
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.OneToOne
+import javax.persistence.*
 
 @Entity
-class Alarms {
-    @Id
-    var id: String = UUID.randomUUID().toString()
-    var time: String = ""
-    var active: Int = 0
+@Table(name="alarms")
+class Alarm {
+    @Column(nullable = false)
     var name: String = ""
-    var group_id: String = ""
+    @Column(nullable = false)
+    var time: String = ""
+    var day: Int? = null
+    var sound: String? = null
+    var vibration: String? = null
+    @Column(name = "is_active")
+    var isActive: Boolean = true
+    @ManyToOne
+    var group: Group? = null
+    @ManyToMany(mappedBy = "alarms")
+    var users: List<User> = mutableListOf()
+    @Id
+    @GeneratedValue
+    var id: Long? = null
 }
