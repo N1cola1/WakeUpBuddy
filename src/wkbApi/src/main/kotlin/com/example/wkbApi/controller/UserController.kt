@@ -47,4 +47,13 @@ class UserController(private val repository: UserRepository) {
         return result
     }
 
+    @GetMapping("/login")
+    fun loginUser(@RequestParam username: String, @RequestParam password: String) {
+        val user: User = repository.findByUsername(username)
+            ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "Username does not exist.")
+        if (password == user.password) {
+            //todo implement HMAC for login
+        }
+    }
+
 }

@@ -9,7 +9,7 @@ interface AlarmRepository : CrudRepository<Alarm, Long> {
 }
 
 interface UserRepository : CrudRepository<User, Long> {
-    fun findByUsername(username: String): User
+    fun findByUsername(username: String): User?
 }
 
 interface GroupRepository : CrudRepository<Group, Long> {
